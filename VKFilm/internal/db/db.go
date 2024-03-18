@@ -5,7 +5,6 @@ import (
 	"os"
 )
 
-// New создает новое подключение к базе данных
 // Установить значение
 func New() *pg.DB {
 	db := pg.Connect(&pg.Options{
