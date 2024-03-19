@@ -9,25 +9,24 @@ import (
 )
 
 func main() {
-	// Инициализация подключения к базе данных
 	database := db.New()
 	defer database.Close()
 
-	// Инициализация сервисов
+	//сервисы
 	actorService := service.NewActorService(database)
 	movieService := service.NewMovieService(database)
 
-	// Инициализация обработчиков
+	//ручки
 	actorHandler := handler.NewActorHandler(actorService)
 	movieHandler := handler.NewMovieHandler(movieService)
 
-	// Настройка маршрутов
+	//маршруты
 	http.HandleFunc("/actors", actorHandler.HandleActors)
 	http.HandleFunc("/actors/", actorHandler.HandleActors) // Для обработки запросов с ID
 	http.HandleFunc("/movies", movieHandler.HandleMovies)
 	http.HandleFunc("/movies/", movieHandler.HandleMovies) // Для обработки запросов с ID
 
-	// Запуск HTTP сервера
+	//запуск сервера
 	log.Println("Server is running on :8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatalf("Failed to start server: %s", err)
